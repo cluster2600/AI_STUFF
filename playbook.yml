@@ -1,0 +1,9 @@
+---
+- name: Install and configure JupyterLab with OpenAI
+  hosts: localhost
+  connection: local
+  become: yes
+  vars:
+    openai_api_key: "your-api-key"
+  roles:
+    - jupyter
