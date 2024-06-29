@@ -1,4 +1,3 @@
-# AI_STUFF
 # Installation de JupyterLab et Configuration de l'API OpenAI sur macOS
 
 Ce dépôt contient un script KornShell (ksh) pour installer JupyterLab sur macOS en utilisant Homebrew et configurer OpenAI.
@@ -15,6 +14,8 @@ Ce dépôt contient un script KornShell (ksh) pour installer JupyterLab sur macO
 Clonez ce dépôt sur votre machine locale :
 
 ```sh
-git clone https://github.com/cluster2600/AI_STUFF.git
-cd AI_STUFF
+git clone https://github.com/votre-utilisateur/nom-du-depot.git
+cd nom-du-depot
+chmod +x install_jupyter_openai.ksh
+./install_jupyter_openai.ksh
 
