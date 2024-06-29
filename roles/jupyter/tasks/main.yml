@@ -1,0 +1,53 @@
+---
+- name: Ensure Homebrew is installed
+  command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  args:
+    creates: /usr/local/bin/brew
+  tags: homebrew
+
+- name: Update Homebrew
+  command: brew update
+  tags: homebrew
+
+- name: Ensure Python3 is installed
+  homebrew:
+    name: python
+    state: present
+  tags: python
+
+- name: Create virtual environment for JupyterLab and OpenAI
+  command: python3 -m venv /usr/local/bin/jupyterlab-env
+  args:
+    creates: /usr/local/bin/jupyterlab-env
+  tags: python
+
+- name: Install JupyterLab and ipykernel
+  shell: |
+    source /usr/local/bin/jupyterlab-env/bin/activate
+    pip install jupyterlab ipykernel
+  tags: jupyter
+
+- name: Install OpenAI package
+  shell: |
+    source /usr/local/bin/jupyterlab-env/bin/activate
+    pip install openai
+  tags: openai
+
+- name: Add virtual environment as Jupyter kernel
+  shell: |
+    source /usr/local/bin/jupyterlab-env/bin/activate
+    python -m ipykernel install --user --name=jupyterlab-env --display-name "Python (jupyterlab-env)"
+  tags: jupyter
+
+- name: Copy OpenAI configuration file
+  copy:
+    src: openai_config.py
+    dest: /usr/local/bin/jupyterlab-env/bin/openai_config.py
+  tags: openai
+
+- name: Update OpenAI API key
+  lineinfile:
+    path: /usr/local/bin/jupyterlab-env/bin/openai_config.py
+    regexp: 'openai.api_key = .*'
+    line: 'openai.api_key = "{{ openai_api_key }}"'
+  tags: openai
