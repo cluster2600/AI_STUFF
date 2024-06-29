@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Install Homebrew if not installed
+if ! command -v brew &> /dev/null
+then
+    echo "Homebrew could not be found, installing..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+
+# Update Homebrew
+echo "Updating Homebrew..."
+brew update
+
+# Install Python3 if not installed
+if ! command -v python3 &> /dev/null
+then
+    echo "Python3 could not be found, installing..."
+    brew install python
+fi
+
+# Create virtual environment
+echo "Creating virtual environment..."
+python3 -m venv /usr/local/bin/jupyterlab-env
+
+# Activate virtual environment
+echo "Activating virtual environment..."
+source /usr/local/bin/jupyterlab-env/bin/activate
+
+# Install JupyterLab and ipykernel
+echo "Installing JupyterLab and ipykernel..."
+pip install jupyterlab ipykernel
+
+# Install OpenAI package
+echo "Installing OpenAI package..."
+pip install openai
+
+# Add virtual environment as Jupyter kernel
+echo "Adding virtual environment as Jupyter kernel..."
+python -m ipykernel install --user --name=jupyterlab-env --display-name "Python (jupyterlab-env)"
+
+# Copy OpenAI configuration file
+echo "Copying OpenAI configuration file..."
+cp /path/to/openai_config.py /usr/local/bin/jupyterlab-env/bin/openai_config.py
+
+# Update OpenAI API key
+echo "Updating OpenAI API key..."
+sed -i '' 's/openai.api_key = "your-api-key"/openai.api_key = "{{ openai_api_key }}"/' /usr/local/bin/jupyterlab-env/bin/openai_config.py
+
+echo "Installation and configuration completed."
