@@ -25,29 +25,25 @@ else
     echo "Python3 est déjà installé."
 fi
 
-# Installer JupyterLab
-echo "Installation de JupyterLab..."
-pip3 install jupyterlab
-
-# Vérifier l'installation de JupyterLab
-if command_exists jupyter-lab; then
-    echo "JupyterLab a été installé avec succès."
-else
-    echo "Erreur lors de l'installation de JupyterLab."
-    exit 1
-fi
-
-# Créer un environnement virtuel pour JupyterLab
-echo "Création d'un environnement virtuel pour JupyterLab..."
+# Créer un environnement virtuel pour JupyterLab et OpenAI
+echo "Création d'un environnement virtuel pour JupyterLab et OpenAI..."
 python3 -m venv jupyterlab-env
 
 # Activer l'environnement virtuel
 echo "Activation de l'environnement virtuel..."
 source jupyterlab-env/bin/activate
 
-# Installer les packages nécessaires pour OpenAI
-echo "Installation des packages nécessaires pour OpenAI..."
+# Installer JupyterLab et ipykernel dans l'environnement virtuel
+echo "Installation de JupyterLab et ipykernel..."
+pip install jupyterlab ipykernel
+
+# Installer le package OpenAI dans l'environnement virtuel
+echo "Installation du package OpenAI..."
 pip install openai
+
+# Ajouter l'environnement virtuel comme kernel dans JupyterLab
+echo "Ajout de l'environnement virtuel comme kernel dans JupyterLab..."
+python -m ipykernel install --user --name=jupyterlab-env --display-name "Python (jupyterlab-env)"
 
 # Créer un fichier de configuration pour OpenAI
 echo "Création d'un fichier de configuration pour OpenAI..."
