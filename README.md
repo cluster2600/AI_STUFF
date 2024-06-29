@@ -211,11 +211,9 @@ Les contributions sont les bienvenues ! Veuillez soumettre une pull request pour
 Licence
 Ce projet est sous licence MIT. Voir le fichier LICENSE pour plus d'informations.
 
-rust
+comment executer:
 
-Ce fichier README.md fournit des instructions complètes pour utiliser le playbook Ansible afin d'installer et de configurer JupyterLab avec l'API OpenAI sur macOS.
-
-
+ansible-playbook -i localhost, playbook.yml --extra-vars "openai_api_key=your-api-key"
 
 
 
