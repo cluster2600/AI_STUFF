@@ -45,4 +45,4 @@ If you encounter any issues during the installation, check the following:
 - Verify that you have the necessary permissions to install software
 - Check for any error messages in the script output
 
-For further assistance, consult the documentation for Homebrew, Python, JupyterLab, o
+For further assistance, consult the documentation for Homebrew, Python, JupyterLab, or OpenAI as needed.
